@@ -1,0 +1,186 @@
+// Meridian Installer's channel: what can be installed — the product, its
+// workloads, and the components they are made of. Substrate Data text (JSON
+// with comments, unquoted keys and trailing commas). Built into the Installer
+// and refreshed from the latest Meridian-Installer release (which carries this
+// file as the asset `catalog.sdata`), so an Installer already out there learns
+// of new components. Versions are not here: each `source` says where they are
+// published. What every repository's release must publish is in
+// docs/release-contract.md.
+{
+  // Bumped with every change: an Installer takes the newest of its own and the channel's.
+  revision: 1,
+
+  // The release asset that says what a release needs of the others:
+  // `{ requires: { "meridian.cli": ">=0.2.0" } }`.
+  manifest: "meridian-release.sdata",
+
+  // Meridian Installer itself: updated before anything else.
+  installer: {
+    name: "Meridian Installer",
+    program: "meridian-installer",
+    source: {
+      kind: "github",
+      repo: "F000NKKK/Meridian-Installer",
+      // Tauri's bundles: an AppImage, an NSIS setup, a universal macOS app.
+      assets: {
+        "linux-x86_64": "_amd64.AppImage",
+        "windows-x86_64": "_x64-setup.exe",
+        "macos-x86_64": "_universal.app.tar.gz",
+        "macos-aarch64": "_universal.app.tar.gz",
+      },
+    },
+  },
+
+  groups: [
+    { id: "toolchain", name: "Compilers and tools" },
+    { id: "sdk", name: "Engine SDK" },
+    { id: "content", name: "Examples and assets" },
+  ],
+
+  products: [
+    {
+      id: "meridian.idle",
+      name: "Meridian IDLE",
+      description: "The editor, launcher and debugger for games built on Meridian Engine.",
+      workloads: ["meridian.workload.game", "meridian.workload.engine"],
+      // What starts it (on macOS, the .app inside the package).
+      program: "meridian-idle",
+      icon: "https://raw.githubusercontent.com/F000NKKK/Meridian-IDLE/main/src-tauri/icons/128x128%402x.png",
+      source: {
+        kind: "github",
+        repo: "F000NKKK/Meridian-IDLE",
+        // The package each platform runs from: an asset whose name ends so.
+        assets: {
+          "linux-x86_64": "_amd64.AppImage",
+          "windows-x86_64": "_x64-setup.exe",
+          "macos-x86_64": "_universal.app.tar.gz",
+          "macos-aarch64": "_universal.app.tar.gz",
+        },
+        // Where the system has WebKitGTK 4.1, the .deb's program runs on the
+        // system's WebKit and GStreamer, which the AppImage's older ones can
+        // break against.
+        system: {
+          assets: { "linux-x86_64": "_amd64.deb" },
+          needs: [
+            "libwebkit2gtk-4.1.so.0",
+            "libjavascriptcoregtk-4.1.so.0",
+            "libsoup-3.0.so.0",
+            "libgtk-3.so.0",
+          ],
+        },
+      },
+    },
+  ],
+
+  workloads: [
+    {
+      id: "meridian.workload.game",
+      name: "Game development",
+      description: "Make a game on Meridian Engine: the meridian CLI, the Rust toolchain, the engine SDK and the examples to learn from.",
+      icon: "puzzle",
+      required: ["meridian.cli", "rust.toolchain", "meridian.sdk"],
+      recommended: ["meridian.examples"],
+      optional: ["rust.targets", "meridian.assets"],
+    },
+    {
+      id: "meridian.workload.engine",
+      name: "Engine development",
+      description: "Work on Meridian Engine itself: its source and documentation, the examples and the sample assets, built with the Rust toolchain.",
+      icon: "layers",
+      required: ["meridian.sdk", "rust.toolchain"],
+      recommended: ["meridian.examples", "meridian.assets", "meridian.cli"],
+      optional: ["rust.targets"],
+    },
+  ],
+
+  components: [
+    {
+      id: "rust.toolchain",
+      name: "Rust toolchain",
+      description: "rustc and cargo — the version Meridian Engine is built with.",
+      group: "toolchain",
+      source: { kind: "rustup", toolchain: "1.99" },
+    },
+    {
+      id: "rust.targets",
+      name: "Rust targets for every platform",
+      description: "Linux, Windows and macOS (x86_64 and arm64), to build a game for another system.",
+      group: "toolchain",
+      requires: ["rust.toolchain"],
+      source: {
+        kind: "rust-targets",
+        toolchain: "1.99",
+        targets: [
+          "x86_64-unknown-linux-gnu",
+          "aarch64-unknown-linux-gnu",
+          "x86_64-pc-windows-gnu",
+          "x86_64-apple-darwin",
+          "aarch64-apple-darwin",
+        ],
+      },
+    },
+    {
+      id: "meridian.cli",
+      name: "Meridian CLI",
+      description: "meridian new, build, run and check — creates a game and builds it.",
+      group: "toolchain",
+      requires: ["rust.toolchain"],
+      // One archive per platform: meridian-<platform>.tar.gz (.zip on Windows).
+      source: {
+        kind: "github",
+        repo: "F000NKKK/Meridian-CLI",
+        assets: {
+          "linux-x86_64": "-linux-x86_64.tar.gz",
+          "linux-aarch64": "-linux-aarch64.tar.gz",
+          "windows-x86_64": "-windows-x86_64.zip",
+          "macos-x86_64": "-macos-x86_64.tar.gz",
+          "macos-aarch64": "-macos-aarch64.tar.gz",
+        },
+      },
+    },
+    {
+      id: "meridian.sdk",
+      name: "Meridian Engine SDK",
+      description: "A release of the engine: its crates and documentation, as source.",
+      group: "sdk",
+      requires: ["rust.toolchain"],
+      source: { kind: "git", repo: "F000NKKK/Meridian-Engine" },
+    },
+    {
+      id: "meridian.examples",
+      name: "Meridian examples",
+      description: "The engine's example programs, ready to build and run.",
+      group: "content",
+      requires: ["meridian.sdk"],
+      // One archive holds every platform's.
+      source: {
+        kind: "github",
+        repo: "F000NKKK/Meridian-Engine",
+        assets: {
+          "linux-x86_64": "meridian-examples.zip",
+          "linux-aarch64": "meridian-examples.zip",
+          "windows-x86_64": "meridian-examples.zip",
+          "macos-x86_64": "meridian-examples.zip",
+          "macos-aarch64": "meridian-examples.zip",
+        },
+      },
+    },
+    {
+      id: "meridian.assets",
+      name: "Meridian sample assets",
+      description: "Models, textures and sounds the examples use.",
+      group: "content",
+      source: {
+        kind: "github",
+        repo: "F000NKKK/Meridian-Engine",
+        assets: {
+          "linux-x86_64": "meridian-assets.zip",
+          "linux-aarch64": "meridian-assets.zip",
+          "windows-x86_64": "meridian-assets.zip",
+          "macos-x86_64": "meridian-assets.zip",
+          "macos-aarch64": "meridian-assets.zip",
+        },
+      },
+    },
+  ],
+}

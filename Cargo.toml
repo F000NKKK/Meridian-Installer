@@ -1,0 +1,67 @@
+# The headless crates (`crates/`) and the Tauri app (`src-tauri/`): one target dir.
+[workspace]
+members = ["crates/*"]
+resolver = "3"
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.99"
+authors = ["F000NK"]
+license = "AGPL-3.0-only"
+repository = "https://github.com/F000NKKK/Meridian-Installer"
+
+[workspace.dependencies]
+meridian-installer-core = { path = "crates/meridian-installer-core" }
+# The installer engine, from the sibling checkout (`../Substrate-Platform`), by path.
+substrate-installer-app = { path = "../Substrate-Platform/crates/substrate-installer-app" }
+substrate-installer-archive = { path = "../Substrate-Platform/crates/substrate-installer-archive" }
+substrate-installer-domain = { path = "../Substrate-Platform/crates/substrate-installer-domain" }
+substrate-installer-fs = { path = "../Substrate-Platform/crates/substrate-installer-fs" }
+substrate-installer-http = { path = "../Substrate-Platform/crates/substrate-installer-http" }
+substrate-installer-process = { path = "../Substrate-Platform/crates/substrate-installer-process" }
+substrate-installer-data = { path = "../Substrate-Platform/crates/substrate-installer-data" }
+substrate-process = { path = "../Substrate-Platform/crates/substrate-process" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tempfile = "3"
+
+# Craftbook's lint set (templates/workspace-lints.toml).
+[workspace.lints.rust]
+missing_docs = "deny"
+missing_debug_implementations = "deny"
+unsafe_code = "deny"
+unreachable_pub = "deny"
+unused_qualifications = "deny"
+elided_lifetimes_in_paths = "deny"
+
+[workspace.lints.clippy]
+pedantic = { level = "deny", priority = -1 }
+too_many_lines = "deny"
+too_many_arguments = "deny"
+excessive_nesting = "deny"
+cognitive_complexity = "deny"
+fn_params_excessive_bools = "deny"
+struct_excessive_bools = "deny"
+module_name_repetitions = "deny"
+unwrap_used = "deny"
+panic = "deny"
+todo = "deny"
+unreachable = "deny"
+unimplemented = "deny"
+dbg_macro = "deny"
+print_stdout = "deny"
+print_stderr = "deny"
+allow_attributes = "deny"
+allow_attributes_without_reason = "deny"
+undocumented_unsafe_blocks = "deny"
+wildcard_imports = "deny"
+let_underscore_must_use = "deny"
+let_underscore_untyped = "deny"
+missing_errors_doc = "deny"
+missing_panics_doc = "deny"
+mod_module_files = "allow"
+self_named_module_files = "deny"
+large_types_passed_by_value = "deny"
+shadow_unrelated = "deny"

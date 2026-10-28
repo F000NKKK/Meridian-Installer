@@ -1,0 +1,36 @@
+[package]
+name = "meridian-installer-cli"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository.workspace = true
+description = "The headless Meridian Installer: list, plan, install, update, remove and status from a terminal or CI."
+readme = "README.md"
+
+[lints]
+workspace = true
+
+[lib]
+name = "meridian_installer_cli"
+path = "src/lib.rs"
+
+[[bin]]
+name = "meridian-installer"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+ctrlc = "3"
+meridian-installer-core.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+substrate-installer-app.workspace = true
+substrate-installer-domain.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+meridian-installer-core = { workspace = true, features = ["testing"] }
+serde_json.workspace = true
+tempfile.workspace = true

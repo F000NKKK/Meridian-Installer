@@ -1,0 +1,66 @@
+# Layer and context map for craftcheck (craftbook rust/06-tooling.md §6.3).
+# The composition root and the binaries are the interface layer; the engine
+# comes from Substrate Platform's installer context (a sibling checkout).
+
+[[crate]]
+name = "meridian-installer-core"
+layer = "interface"
+context = "installer-app"
+
+[[crate]]
+name = "meridian-installer-cli"
+layer = "interface"
+context = "installer-app"
+
+[[crate]]
+name = "meridian-installer"
+layer = "interface"
+context = "installer-app"
+
+# Substrate Platform's installer context, as this repository sees it.
+[[crate]]
+name = "substrate-installer-domain"
+layer = "domain"
+context = "installer"
+[[crate]]
+name = "substrate-installer-app"
+layer = "app"
+context = "installer"
+[[crate]]
+name = "substrate-installer-data"
+layer = "infra"
+context = "installer"
+[[crate]]
+name = "substrate-installer-http"
+layer = "infra"
+context = "installer"
+[[crate]]
+name = "substrate-installer-process"
+layer = "infra"
+context = "installer"
+[[crate]]
+name = "substrate-installer-archive"
+layer = "infra"
+context = "installer"
+[[crate]]
+name = "substrate-installer-fs"
+layer = "infra"
+context = "installer"
+[[crate]]
+name = "substrate-process"
+layer = "infra"
+context = "process"
+
+[[context_edge]]
+from = "installer-app"
+to = "installer"
+relation = "customer-supplier"
+[[context_edge]]
+from = "installer-app"
+to = "process"
+relation = "customer-supplier"
+
+[[exempt]]
+path = "crates/meridian-installer-cli/src/main.rs"
+reason = "a binary's entry point is the one file that holds `fn main`; it only calls the library"
+codes = ["C103"]
