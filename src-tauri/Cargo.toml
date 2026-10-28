@@ -26,6 +26,7 @@ tauri-build = { version = "2", features = [] }
 [dependencies]
 meridian-installer-core.workspace = true
 serde.workspace = true
+substrate-host-contract.workspace = true
 substrate-installer-domain.workspace = true
 substrate-process.workspace = true
 tauri = { version = "2", features = [] }
