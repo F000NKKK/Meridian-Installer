@@ -1,0 +1,250 @@
+/* Meridian Installer — Visual Studio Installer's layout, in the platform's tokens. */
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+.mi-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--sp-surface-0);
+  color: var(--sp-text);
+  font-family: var(--sp-font-ui);
+  font-size: var(--sp-font-size);
+}
+
+.mi-titlebar {
+  display: flex;
+  align-items: center;
+  height: var(--sp-caption-height);
+  padding-left: var(--sp-space-md);
+  background: var(--sp-surface-1);
+  border-bottom: 1px solid var(--sp-border);
+  user-select: none;
+}
+
+.mi-titlebar-name {
+  flex: 1;
+  font-weight: 600;
+}
+
+.mi-titlebar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-space-xs);
+}
+
+.mi-bell {
+  position: relative;
+  display: flex;
+}
+
+.mi-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 14px;
+  padding: 0 3px;
+  box-sizing: border-box;
+  border-radius: 7px;
+  background: var(--sp-accent);
+  color: var(--sp-accent-contrast);
+  font-size: var(--sp-font-size-xs);
+  line-height: 14px;
+  text-align: center;
+  pointer-events: none;
+}
+
+.mi-self-update {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-space-md);
+  padding: var(--sp-space-sm) var(--sp-space-lg);
+  background: var(--sp-accent-soft);
+}
+
+.mi-self-update span {
+  flex: 1;
+}
+
+.mi-self-update-dialog {
+  width: 440px;
+}
+
+.mi-self-update-progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-space-xs);
+}
+
+.mi-tabs {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-space-xs);
+  padding: var(--sp-space-sm) var(--sp-space-lg) 0;
+  border-bottom: 1px solid var(--sp-border);
+}
+
+.mi-tabs-spacer {
+  flex: 1;
+}
+
+.mi-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.mi-products {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  padding: var(--sp-space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-space-md);
+}
+
+.mi-card {
+  display: flex;
+  gap: var(--sp-space-lg);
+  padding: var(--sp-space-lg);
+  background: var(--sp-surface-1);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-md);
+}
+
+.mi-card-icon {
+  color: var(--sp-accent);
+}
+
+.mi-card-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-space-2xs);
+  min-width: 0;
+}
+
+.mi-card-name {
+  margin: 0;
+  font-size: 1.25em;
+  font-weight: 600;
+}
+
+.mi-card-size {
+  text-align: center;
+}
+
+.mi-card-version,
+.mi-card-size,
+.mi-muted {
+  color: var(--sp-text-muted);
+}
+
+.mi-card-description {
+  margin: var(--sp-space-xs) 0;
+}
+
+.mi-card-update {
+  display: flex;
+  gap: var(--sp-space-sm);
+  margin-top: var(--sp-space-sm);
+  font-weight: 600;
+  color: var(--sp-accent);
+}
+
+.mi-card-update-version {
+  color: var(--sp-text-muted);
+  font-weight: normal;
+}
+
+.mi-card-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--sp-space-xs);
+  min-width: 120px;
+}
+
+.mi-more-anchor {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.mi-more-chevron {
+  transform: rotate(90deg);
+}
+
+.mi-link {
+  align-self: flex-start;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--sp-accent);
+  cursor: pointer;
+  font: inherit;
+}
+
+.mi-link:hover {
+  text-decoration: underline;
+}
+
+.mi-op {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-space-xs);
+  margin-top: var(--sp-space-sm);
+}
+
+.mi-op-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mi-op-detail {
+  color: var(--sp-text-muted);
+  font-size: var(--sp-font-size-sm);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mi-op-buttons {
+  display: flex;
+  gap: var(--sp-space-xs);
+}
+
+.mi-op--ended {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mi-op-error {
+  color: var(--sp-danger);
+}
+
+.mi-op-note {
+  color: var(--sp-text-muted);
+}
+
+.mi-path {
+  font-family: var(--sp-font-mono);
+  font-size: var(--sp-font-size-sm);
+}
+
+.mi-statusbar {
+  height: var(--sp-statusbar-height);
+  padding: 0 var(--sp-space-lg);
+  display: flex;
+  align-items: center;
+  border-top: 1px solid var(--sp-border);
+  color: var(--sp-text-muted);
+  font-size: var(--sp-font-size-sm);
+}
