@@ -68,3 +68,9 @@ mod_module_files = "allow"
 self_named_module_files = "deny"
 large_types_passed_by_value = "deny"
 shadow_unrelated = "deny"
+
+# First-run bundle placement, pending the next Substrate crates.io release.
+[patch.crates-io]
+substrate-installer-fs = { git = "https://github.com/F000NKKK/Substrate-Platform", rev = "9467fd86a2e1a2dadc350a698f2aba840b5b3389" }
+substrate-installer-app = { git = "https://github.com/F000NKKK/Substrate-Platform", rev = "9467fd86a2e1a2dadc350a698f2aba840b5b3389" }
+substrate-installer-domain = { git = "https://github.com/F000NKKK/Substrate-Platform", rev = "9467fd86a2e1a2dadc350a698f2aba840b5b3389" }

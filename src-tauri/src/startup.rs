@@ -15,9 +15,12 @@ pub(crate) fn operations() -> Result<Operations, String> {
     let config = MachineConfig::from_environment(None).map_err(|e| describe(&e))?;
     let machine = Machine::real(&config).map_err(|e| describe(&e))?;
     let loaded = Loaded::from_home(&config.home).map_err(|e| describe(&e))?;
-    let notices = loaded.notice.iter().map(|n| describe(n)).collect();
+    let mut notices: Vec<String> = loaded.notice.iter().map(|n| describe(n)).collect();
     let host = detect().map_err(|e| describe(&e))?;
     let version = Version::new(env!("CARGO_PKG_VERSION")).map_err(|e| describe(&e))?;
+    if let Err(error) = crate::first_run::install(&config, &loaded.catalog, &version) {
+        notices.push(error);
+    }
     let session = Session::new(Arc::new(machine), config.home, loaded.catalog, host)
         .with_running_version(version);
     Ok(Operations::new(session, notices))

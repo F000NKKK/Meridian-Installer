@@ -41,7 +41,7 @@ export function ProductCard({ product, op, busy, actions }: { product: Product; 
           </div>
         )}
         {!installed && product.latest === null && <p className="mi-op-error">{t("Its versions couldn't be read — see the notifications.")}</p>}
-        {op && <OperationProgress op={op} onPause={actions.onPause} onDismiss={actions.onDismiss} />}
+        {op && <OperationProgress op={op} onPause={actions.onPause} onCancel={actions.onCancel} onDismiss={actions.onDismiss} />}
       </div>
       <div className="mi-card-actions">
         {!installed && (

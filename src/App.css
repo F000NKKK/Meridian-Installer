@@ -21,6 +21,7 @@ body,
   display: flex;
   align-items: center;
   height: var(--sp-caption-height);
+  flex-shrink: 0;
   padding-left: var(--sp-space-md);
   background: var(--sp-surface-1);
   border-bottom: 1px solid var(--sp-border);

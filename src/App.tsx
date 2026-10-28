@@ -50,7 +50,7 @@ export default function App() {
     );
   }, [selfOp, snapshot?.installerId]);
 
-  const installed = snapshot?.products.filter((p) => p.installed !== null) ?? [];
+  const installed = snapshot?.products.filter((p) => p.installed !== null || operation.op?.product === p.id) ?? [];
   const available = snapshot?.products.filter((p) => p.installed === null) ?? [];
   const shown = page === "installed" ? installed : available;
   const busy = operation.running;
@@ -58,8 +58,9 @@ export default function App() {
   const guard = (promise: Promise<void>) => promise.catch((e) => notify({ level: "error", message: String(e) }));
 
   async function update(p: Product) {
-    const selection = await api.selectionOf(p.id);
-    await guard(api.apply({ product: p.id, selection, mode: settings.mode, keepDownloads: settings.keepDownloads }));
+    await guard(api.selectionOf(p.id).then((selection) =>
+      api.apply({ product: p.id, selection, mode: settings.mode, keepDownloads: settings.keepDownloads }),
+    ));
   }
 
   async function uninstall(p: Product) {

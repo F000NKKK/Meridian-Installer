@@ -66,12 +66,18 @@ manifest unreadable, and the installer then says so instead of guessing. A relea
 manifest has no requirements. The Modify window shows an unmet requirement as a conflict before
 anything is installed.
 
+## First launch
+
+Release builds retain their local bundle without downloading it again.
+
+- **Placement.** Release builds retain their local bundle without downloading it again:
+  the original Linux AppImage under the Meridian home with a desktop launcher, the complete
+  macOS `.app` with an Applications link, or the Windows executable placed by NSIS. Development
+  builds skip this step. The installed path is recorded for launching and subsequent updates;
+  opening an older download preserves a newer installed copy. A placement failure appears in
+  the notifications without preventing the rest of the Installer from opening.
 ## TODO
 
-- **Placement of the Installer itself.** Substrate has no piece that puts the Installer's own
-  bundle in place or registers it (menu entry, uninstall entry). Self-update replaces the
-  running bundle from the release asset and restarts; the first installation is a download of the
-  bundle by hand.
 - **Interrupted installations** are not resumed: Substrate has no pending journal, so an
   installation that stops half-way is retried from the start by running it again.
 - **Empty folders** are left in the home after a removal.

@@ -5,6 +5,7 @@
 mod app;
 mod app_state;
 mod commands;
+mod first_run;
 mod host;
 mod startup;
 
