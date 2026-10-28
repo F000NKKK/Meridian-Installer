@@ -24,6 +24,7 @@ export default function App() {
   const [settings, setSettings] = usePersisted<ModifySettings>("modify.settings", DEFAULT_SETTINGS);
   const [selfUpdateLater, setSelfUpdateLater] = useState(false);
   const [checking, setChecking] = useState(false);
+  const [restartError, setRestartError] = useState<string | null>(null);
 
   const load = useCallback((refresh: boolean) => {
     api.snapshot(refresh).then(
@@ -41,16 +42,20 @@ export default function App() {
   // The new Installer is in place: start it and let this one go.
   const selfOp = operation.op && operation.op.product === snapshot?.installerId ? operation.op : null;
   const restarted = useRef(false);
+  const restartInstaller = useCallback((id: string) => {
+    setRestartError(null);
+    api.launch(id).then(
+      () => { void getCurrentWindow().close().catch((e) => notify({ level: "error", message: String(e) })); },
+      (e) => setRestartError(String(e)),
+    );
+  }, []);
   useEffect(() => {
     if (!selfOp?.finished?.ok || !snapshot?.installerId || restarted.current) return;
     restarted.current = true;
-    api.launch(snapshot.installerId).then(
-      () => void getCurrentWindow().close(),
-      (e) => notify({ level: "error", message: String(e) }),
-    );
-  }, [selfOp, snapshot?.installerId]);
+    restartInstaller(snapshot.installerId);
+  }, [selfOp, snapshot?.installerId, restartInstaller]);
 
-  const installed = snapshot?.products.filter((p) => p.installed !== null || operation.op?.product === p.id) ?? [];
+  const installed = snapshot?.products.filter((p) => p.installed !== null || (operation.op?.product === p.id && operation.op.finished?.ok !== true)) ?? [];
   const available = snapshot?.products.filter((p) => p.installed === null) ?? [];
   const shown = page === "installed" ? installed : available;
   const busy = operation.running;
@@ -144,7 +149,19 @@ export default function App() {
         <ModifyWindow product={modifying} snapshot={snapshot} settings={settings} onSettings={setSettings} onApply={(s) => apply(modifying, s)} onClose={() => setModifying(null)} />
       )}
       {snapshot?.installerUpdate && !selfUpdateLater && (!busy || selfOp !== null) && (
-        <SelfUpdateDialog current={snapshot.version} next={snapshot.installerUpdate} op={selfOp} onUpdate={() => void guard(api.selfUpdate())} onLater={() => setSelfUpdateLater(true)} />
+        <SelfUpdateDialog
+          current={snapshot.version}
+          next={snapshot.installerUpdate}
+          op={selfOp}
+          restartError={restartError}
+          onRestart={() => { if (snapshot.installerId) restartInstaller(snapshot.installerId); }}
+          onUpdate={() => {
+            restarted.current = false;
+            setRestartError(null);
+            void guard(api.selfUpdate());
+          }}
+          onLater={() => setSelfUpdateLater(true)}
+        />
       )}
       <DialogHost />
       <NotificationHost />

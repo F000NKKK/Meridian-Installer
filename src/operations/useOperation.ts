@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { notify } from "substrate-platform-ui";
 import { api, type ProgressEvent } from "../api";
 
 /** A running (or just ended) operation, as a product card shows it. */
@@ -88,10 +89,12 @@ export function useOperation(onFinished: () => void) {
     op,
     running: op !== null && op.finished === null,
     pause: (paused: boolean) => {
-      void api.pause(paused);
-      setOp((prev) => prev && { ...prev, paused });
+      api.pause(paused).then(
+        () => setOp((prev) => prev && !prev.finished ? { ...prev, paused } : prev),
+        (e) => notify({ level: "error", message: String(e) }),
+      );
     },
-    cancel: () => void api.cancel(),
+    cancel: () => { void api.cancel().catch((e) => notify({ level: "error", message: String(e) })); },
     dismiss: () => setOp(null),
   };
 }

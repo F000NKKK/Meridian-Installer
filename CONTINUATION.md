@@ -1,8 +1,9 @@
 # Continue this work
 
 The requested work is: release Meridian IDLE and the Engine SDK, fix Meridian Installer,
-and make the Installer install itself. The user asked to stop this chat after committing
-and preparing PRs. Releases have **not** been published.
+and make the Installer install itself. The user resumed local development while environment publication is deferred.
+The original branches were pushed, but GitHub API access prevented creating PRs.
+Releases have **not** been published.
 
 ## Changes
 
@@ -61,3 +62,11 @@ selected option A. The next development phase is the data-driven runner, camera 
 settings, then converting examples. Viewport/glTF previews, picking, outlines, grids, undo,
 redo and save were described in the supplied history; verify the current source before
 claiming completion. Do not merge or publish based solely on that historical text.
+
+## Local follow-up: operation recovery
+
+The follow-up fixes removal of successfully uninstalled cards, visible self-update
+failures with retry, retrying launch of an installed update, and errors from pause
+and cancellation without reporting a state the backend did not accept. Playwright
+regressions also cover release-refresh failure and retry. These follow-up changes
+are local; no new pushes or publication were performed.
