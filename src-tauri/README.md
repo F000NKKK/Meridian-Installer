@@ -8,7 +8,7 @@ permissions from them.
 
 **Layer and context:** interface · installer-app
 
-- For: the window, the commands, the events, the bundle (AppImage, NSIS setup,
+- For: the window, the commands, the events, the bundle (`AppImage`, NSIS setup,
   universal macOS app).
 - Not for: installing logic or wiring (`meridian-installer-core`).
 
