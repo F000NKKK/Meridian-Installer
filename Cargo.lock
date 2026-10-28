@@ -3350,6 +3350,8 @@ dependencies = [
 [[package]]
 name = "substrate-host-contract"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ebabcfb1d39b1733ebc6b4fa91dd21f85fcc548181f4db208fa3cd946ed66844"
 dependencies = [
  "substrate-message",
  "substrate-process",
@@ -3359,6 +3361,8 @@ dependencies = [
 [[package]]
 name = "substrate-installer-app"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9bc6612266c9ba6e8947272b2e3cf11fa90e19052a047a0c3a21360fdb4d4c44"
 dependencies = [
  "substrate-installer-domain",
  "thiserror 2.0.21",
@@ -3367,6 +3371,8 @@ dependencies = [
 [[package]]
 name = "substrate-installer-archive"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "14178d9a805287db1bd155d59618ad5abe3ca1b3ec77ae145f4226e852cdf6f7"
 dependencies = [
  "flate2",
  "lzma-rust2",
@@ -3381,6 +3387,8 @@ dependencies = [
 [[package]]
 name = "substrate-installer-data"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f9a31a60b0d23990f46f775badc238810713f17fadd487af00c1848144be9045"
 dependencies = [
  "substrate-data",
  "substrate-installer-app",
@@ -3392,6 +3400,8 @@ dependencies = [
 [[package]]
 name = "substrate-installer-domain"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bbc3eec985996dfc319f6260e9e2eb6b407f77627648f890bc2d404b566196e9"
 dependencies = [
  "semver",
  "thiserror 2.0.21",
@@ -3400,6 +3410,8 @@ dependencies = [
 [[package]]
 name = "substrate-installer-fs"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c554b3f04f979d8623d91c8d90081138a823a8f928cb416772300d234dd612f5"
 dependencies = [
  "substrate-installer-app",
  "substrate-installer-domain",
@@ -3409,6 +3421,8 @@ dependencies = [
 [[package]]
 name = "substrate-installer-http"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "698db0f4ff8dda912b42b7ed5c2ed4aedd0305f29fc4b7227f089e60b2904a70"
 dependencies = [
  "serde",
  "serde_json",
@@ -3422,6 +3436,8 @@ dependencies = [
 [[package]]
 name = "substrate-installer-process"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "248fa7cd4be98f6a8577e8e2e4a1cc183cbe90fbcae642007e180697119a6eca"
 dependencies = [
  "libc",
  "substrate-installer-app",
@@ -3434,10 +3450,14 @@ dependencies = [
 [[package]]
 name = "substrate-lock"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0fbf0e47bc6a1fff99a95208d3c67bc7b5081995153c06844bb47c334f0d2807"
 
 [[package]]
 name = "substrate-message"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "38186fcba0494eac660929aff7bc4f27a50b46d0622a6ad71bd118ad52bf6d00"
 dependencies = [
  "serde",
 ]
@@ -3445,6 +3465,8 @@ dependencies = [
 [[package]]
 name = "substrate-process"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "33afe7d70f24e59d007fcc580b80b75165a9b5ba48ab3fbd70b559c7cca710bd"
 dependencies = [
  "substrate-message",
  "thiserror 2.0.21",
@@ -3453,6 +3475,8 @@ dependencies = [
 [[package]]
 name = "substrate-run-app"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "08d48bb8581c7d0fbb8cf552e38d5e948e95e1637accaf45d31a4a552bed7118"
 dependencies = [
  "substrate-lock",
  "substrate-run-domain",
@@ -3461,10 +3485,14 @@ dependencies = [
 [[package]]
 name = "substrate-run-domain"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "35e77b3fa6faff3b72349f9ea6c014908adcd880cfe9d5a0597bb4da433d5108"
 
 [[package]]
 name = "substrate-run-process"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "acaf701fd78465f0f72384db63987506c9e5ac7db7f5f6a8c081886654e456e1"
 dependencies = [
  "libc",
  "substrate-process",
@@ -3475,6 +3503,8 @@ dependencies = [
 [[package]]
 name = "substrate-workspace-app"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cfcc11eb34cc16ed3cd3089cfde92f9187f6d6597b7448ad5b793b7b0ee81f35"
 dependencies = [
  "substrate-lock",
  "substrate-workspace-domain",
@@ -3483,6 +3513,8 @@ dependencies = [
 [[package]]
 name = "substrate-workspace-domain"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7b44d257d5cef204b6efcf7e3be6a1f5b70850114a0127967619b912b4664eb5"
 dependencies = [
  "substrate-message",
  "thiserror 2.0.21",
@@ -3491,6 +3523,8 @@ dependencies = [
 [[package]]
 name = "substrate-workspace-fs"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0238bc792de8a6771c87e51b08ee599bb3d8790ef84eeaf9fc7bc291268070d9"
 dependencies = [
  "notify",
  "substrate-lock",
@@ -3784,6 +3818,8 @@ dependencies = [
 [[package]]
 name = "tauri-plugin-substrate"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d598457d03c637d592223857c0839bfabbb79a2a364f9782b5ec75cb55155037"
 dependencies = [
  "serde",
  "substrate-host-contract",

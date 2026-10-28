@@ -15,7 +15,7 @@
     "@tauri-apps/api": "~2.12",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "substrate-platform-ui": "file:../Substrate-Platform/ui"
+    "substrate-platform-ui": "file:../../Substrate-Platform/ui"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2",

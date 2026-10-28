@@ -14,17 +14,17 @@ repository = "https://github.com/F000NKKK/Meridian-Installer"
 
 [workspace.dependencies]
 meridian-installer-core = { path = "crates/meridian-installer-core" }
-# The installer engine, from the sibling checkout (`../Substrate-Platform`), by path.
-substrate-installer-app = { path = "../Substrate-Platform/crates/substrate-installer-app" }
-substrate-installer-archive = { path = "../Substrate-Platform/crates/substrate-installer-archive" }
-substrate-installer-domain = { path = "../Substrate-Platform/crates/substrate-installer-domain" }
-substrate-installer-fs = { path = "../Substrate-Platform/crates/substrate-installer-fs" }
-substrate-installer-http = { path = "../Substrate-Platform/crates/substrate-installer-http" }
-substrate-installer-process = { path = "../Substrate-Platform/crates/substrate-installer-process" }
-substrate-installer-data = { path = "../Substrate-Platform/crates/substrate-installer-data" }
-substrate-host-contract = { path = "../Substrate-Platform/crates/substrate-host-contract" }
-substrate-process = { path = "../Substrate-Platform/crates/substrate-process" }
-tauri-plugin-substrate = { path = "../Substrate-Platform/tauri-plugin" }
+# The installer engine: Substrate-Platform's crates from crates.io.
+substrate-installer-app = "0.1.0"
+substrate-installer-archive = "0.1.0"
+substrate-installer-domain = "0.1.0"
+substrate-installer-fs = "0.1.0"
+substrate-installer-http = "0.1.0"
+substrate-installer-process = "0.1.0"
+substrate-installer-data = "0.1.0"
+substrate-host-contract = "0.1.0"
+substrate-process = "0.1.0"
+tauri-plugin-substrate = "0.1.0"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 thiserror = "2"

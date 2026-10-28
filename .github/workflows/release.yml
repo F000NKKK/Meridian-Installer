@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          path: Meridian-Installer
+          path: app/Meridian-Installer
       - uses: actions/checkout@v4
         with:
           repository: F000NKKK/Substrate-Platform
@@ -54,7 +54,7 @@ jobs:
           node-version: 22
 
       - name: Rust (the toolchain rust-toolchain.toml pins)
-        working-directory: Meridian-Installer
+        working-directory: app/Meridian-Installer
         shell: bash
         run: |
           rustup show active-toolchain || rustup toolchain install
@@ -65,14 +65,14 @@ jobs:
         run: npm ci
 
       - name: Meridian Installer's packages
-        working-directory: Meridian-Installer
+        working-directory: app/Meridian-Installer
         run: npm ci
 
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          projectPath: Meridian-Installer
+          projectPath: app/Meridian-Installer
           tagName: ${{ github.ref_name }}
           releaseName: "Meridian Installer ${{ github.ref_name }}"
           releaseBody: "Meridian Installer — installs and updates Meridian IDLE, the meridian CLI, the engine SDK and the Rust toolchain. Download the package for your system below."
