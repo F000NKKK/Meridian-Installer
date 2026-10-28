@@ -1,0 +1,33 @@
+[package]
+name = "meridian-installer"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+publish.workspace = true
+repository.workspace = true
+description = "Meridian Installer: installs and updates Meridian IDLE, the meridian CLI, the engine SDK and the Rust toolchain."
+readme = "README.md"
+
+[lib]
+# The `_lib` suffix keeps the lib's name apart from the bin's (a Windows
+# quirk, see https://github.com/rust-lang/cargo/issues/8519).
+name = "meridian_installer_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[lints]
+workspace = true
+
+[build-dependencies]
+substrate-host-contract.workspace = true
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+meridian-installer-core.workspace = true
+serde.workspace = true
+substrate-host-contract.workspace = true
+substrate-installer-domain.workspace = true
+substrate-process.workspace = true
+tauri = { version = "2", features = [] }
+tauri-plugin-substrate.workspace = true

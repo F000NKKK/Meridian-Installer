@@ -1,0 +1,38 @@
+[package]
+name = "meridian-installer-core"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+publish.workspace = true
+repository.workspace = true
+description = "Meridian Installer's composition root: the home folder, the host, the catalog, and every Substrate installer adapter wired into one session, with the views a window or a terminal shows."
+readme = "README.md"
+
+[lints]
+workspace = true
+
+[features]
+# Fakes of the ports and a sample machine, for this crate's tests and the CLI's.
+testing = ["dep:flate2", "dep:tar", "dep:zip"]
+
+[dependencies]
+flate2 = { version = "1", optional = true }
+tar = { version = "0.4", optional = true }
+zip = { version = "9", default-features = false, features = ["deflate"], optional = true }
+serde.workspace = true
+serde_json.workspace = true
+substrate-installer-app.workspace = true
+substrate-installer-archive.workspace = true
+substrate-installer-data.workspace = true
+substrate-installer-domain.workspace = true
+substrate-installer-fs.workspace = true
+substrate-installer-http.workspace = true
+substrate-installer-process.workspace = true
+substrate-process.workspace = true
+thiserror.workspace = true
+
+[dev-dependencies]
+meridian-installer-core = { workspace = true, features = ["testing"] }
+tempfile.workspace = true

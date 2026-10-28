@@ -1,0 +1,243 @@
+/* The Modify window: over the main one, Visual Studio Installer's layout. */
+
+.mi-modify {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--sp-surface-0);
+  z-index: 10;
+}
+
+.mi-modify-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--sp-caption-height);
+  padding-left: var(--sp-space-md);
+  background: var(--sp-surface-1);
+  border-bottom: 1px solid var(--sp-border);
+  font-weight: 600;
+}
+
+.mi-modify-tabs {
+  display: flex;
+  gap: var(--sp-space-xs);
+  padding: var(--sp-space-sm) var(--sp-space-lg) 0;
+  border-bottom: 1px solid var(--sp-border);
+}
+
+.mi-modify-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.mi-modify-page {
+  flex: 1;
+  overflow: auto;
+  padding: var(--sp-space-lg);
+}
+
+.mi-workloads {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--sp-space-md);
+}
+
+.mi-workload {
+  display: flex;
+  gap: var(--sp-space-md);
+  padding: var(--sp-space-md);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-md);
+  background: var(--sp-surface-1);
+  cursor: pointer;
+}
+
+.mi-workload:hover {
+  background: var(--sp-hover);
+}
+
+.mi-workload.is-checked {
+  border-color: var(--sp-accent);
+  box-shadow: inset 0 0 0 1px var(--sp-accent);
+}
+
+.mi-workload-icon {
+  color: var(--sp-accent);
+}
+
+.mi-workload-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-space-2xs);
+}
+
+.mi-workload-name {
+  font-weight: 600;
+}
+
+.mi-workload-description {
+  color: var(--sp-text-muted);
+  font-size: var(--sp-font-size-sm);
+}
+
+.mi-workload-check {
+  align-self: flex-start;
+}
+
+.mi-components,
+.mi-languages,
+.mi-locations {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-space-sm);
+  max-width: 760px;
+}
+
+.mi-component-group h3,
+.mi-locations h3 {
+  margin: var(--sp-space-md) 0 var(--sp-space-xs);
+  font-size: 1em;
+}
+
+.mi-component {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-space-sm);
+  min-height: var(--sp-row-height);
+}
+
+.mi-component-name {
+  flex: 1;
+}
+
+.mi-component-meta {
+  color: var(--sp-text-muted);
+  font-size: var(--sp-font-size-sm);
+}
+
+.mi-details {
+  width: 300px;
+  overflow: auto;
+  padding: var(--sp-space-lg);
+  border-left: 1px solid var(--sp-border);
+  background: var(--sp-surface-1);
+}
+
+.mi-details h3 {
+  margin: 0 0 var(--sp-space-sm);
+  font-size: 1em;
+}
+
+.mi-detail summary {
+  list-style: none;
+  cursor: pointer;
+  font-weight: 600;
+  margin: var(--sp-space-xs) 0;
+}
+
+.mi-detail summary::-webkit-details-marker {
+  display: none;
+}
+
+.mi-detail[open] .mi-detail-chevron {
+  transform: rotate(90deg);
+}
+
+.mi-detail-heading {
+  margin: var(--sp-space-xs) 0 var(--sp-space-2xs) var(--sp-space-md);
+  color: var(--sp-text-muted);
+  font-size: var(--sp-font-size-sm);
+}
+
+.mi-detail-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-space-xs);
+  margin-left: var(--sp-space-md);
+  padding: var(--sp-space-2xs) 0;
+  line-height: 1.35;
+}
+
+/* The check or checkbox column: one width, so every name starts in line. */
+.mi-detail-mark {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 1.35em;
+}
+
+.mi-detail-mark input {
+  margin: 0;
+}
+
+.mi-detail-row--included {
+  color: var(--sp-text-muted);
+}
+
+.mi-conflicts {
+  padding: var(--sp-space-sm) var(--sp-space-lg);
+  background: var(--sp-surface-2);
+  color: var(--sp-warning);
+  border-top: 1px solid var(--sp-border);
+}
+
+.mi-modify-footer {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-space-lg);
+  padding: var(--sp-space-md) var(--sp-space-lg);
+  border-top: 1px solid var(--sp-border);
+  background: var(--sp-surface-1);
+}
+
+.mi-modify-location {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-space-2xs);
+  min-width: 0;
+}
+
+.mi-modify-total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--sp-space-2xs);
+}
+
+.mi-modify-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-space-sm);
+}
+
+/* The mode and the button: one height, side by side. */
+.mi-mode,
+.mi-modify-go {
+  box-sizing: border-box;
+  height: var(--sp-control-height);
+}
+
+.mi-mode {
+  border-radius: var(--sp-control-radius);
+  border: 1px solid var(--sp-control-border);
+  background: var(--sp-surface-2);
+  color: var(--sp-text);
+  font: inherit;
+  padding: 0 var(--sp-control-padding-x);
+}
+
+.mi-mode:focus-visible {
+  outline: none;
+  box-shadow: var(--sp-focus-ring);
+}
+
+.mi-modify-go {
+  min-width: 110px;
+}

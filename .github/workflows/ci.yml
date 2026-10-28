@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      # The installer builds against Substrate by relative path (`../Substrate-Platform`).
+      - uses: actions/checkout@v4
+        with:
+          path: Meridian-Installer
+      - uses: actions/checkout@v4
+        with:
+          repository: F000NKKK/Substrate-Platform
+          path: Substrate-Platform
+      - uses: actions/checkout@v4
+        with:
+          repository: F000NKKK/craftbook
+          path: craftbook
+
+      - name: Tauri system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libssl-dev
+
+      - name: Rust toolchain
+        working-directory: Meridian-Installer
+        # rust-toolchain.toml picks the version and components.
+        run: rustup show active-toolchain || rustup toolchain install
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: Meridian-Installer
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Substrate UI
+        working-directory: Substrate-Platform/ui
+        run: npm ci || npm install
+
+      - name: Install
+        working-directory: Meridian-Installer
+        run: npm ci
+
+      - name: Typecheck
+        working-directory: Meridian-Installer
+        run: npm run typecheck
+
+      - name: Front-end tests
+        working-directory: Meridian-Installer
+        run: npm test
+
+      # `tauri::generate_context!` needs the built front end.
+      - name: Build front end
+        working-directory: Meridian-Installer
+        run: npx vite build
+
+      - name: cargo fmt
+        working-directory: Meridian-Installer
+        run: cargo fmt --all --check
+
+      - name: cargo clippy
+        working-directory: Meridian-Installer
+        run: cargo clippy --locked --workspace --all-targets --all-features -- -D warnings
+
+      - name: cargo test
+        working-directory: Meridian-Installer
+        run: cargo test --locked --workspace --all-features
+
+      - name: Craftbook
+        working-directory: Meridian-Installer
+        run: |
+          python3 ../craftbook/tools/craftcheck check .
+          python3 ../craftbook/tools/craftcheck deps .

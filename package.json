@@ -1,0 +1,30 @@
+{
+  "name": "meridian-installer",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "typecheck": "tsc --noEmit",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "~2.12",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "substrate-platform-ui": "file:../Substrate-Platform/ui"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^6.1.2",
+    "happy-dom": "^21.0.1",
+    "typescript": "~7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}
