@@ -1,5 +1,9 @@
 //! The commands the window calls (`installer.installer.<command>`): each one
 //! asks the operations of the core and turns an error into a sentence.
+#![expect(
+    clippy::needless_pass_by_value,
+    reason = "Tauri hands a command its arguments by value: `State` and deserialized parameters cannot be borrowed"
+)]
 
 use std::sync::Arc;
 
