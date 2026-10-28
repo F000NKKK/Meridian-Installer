@@ -12,8 +12,8 @@ use meridian_installer_core::display::{EventView, PlanView, SelectionRequest, Sn
 use serde::Serialize;
 use tauri::{AppHandle, Emitter, State};
 
+use crate::app_state::AppState;
 use crate::host::events::PROGRESS;
-use crate::state::AppState;
 
 type Reply<T> = Result<T, String>;
 

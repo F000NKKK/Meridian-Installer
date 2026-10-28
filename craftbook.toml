@@ -64,3 +64,8 @@ relation = "customer-supplier"
 path = "crates/meridian-installer-cli/src/main.rs"
 reason = "a binary's entry point is the one file that holds `fn main`; it only calls the library"
 codes = ["C103"]
+
+[[exempt]]
+path = "src-tauri/src/main.rs"
+codes = ["C103"]
+reason = "the program's entry point: Tauri's template keeps `main` here and the app itself is in lib.rs's `run`"
