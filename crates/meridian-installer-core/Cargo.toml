@@ -5,6 +5,7 @@ edition.workspace = true
 rust-version.workspace = true
 authors.workspace = true
 license.workspace = true
+publish.workspace = true
 repository.workspace = true
 description = "Meridian Installer's composition root: the home folder, the host, the catalog, and every Substrate installer adapter wired into one session, with the views a window or a terminal shows."
 readme = "README.md"

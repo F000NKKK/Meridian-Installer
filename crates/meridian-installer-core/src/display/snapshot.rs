@@ -25,6 +25,8 @@ pub struct Snapshot {
     pub components: Vec<ComponentView>,
     /// The groups.
     pub groups: Vec<GroupView>,
+    /// The Installer's id as a product, to launch it after its update.
+    pub installer_id: Option<String>,
     /// The version of the Installer that a self-update would install.
     pub installer_update: Option<String>,
     /// What could not be asked, and other things to tell.
@@ -62,6 +64,7 @@ impl Snapshot {
                 .map(|component| ComponentView::of(component, installed, available, host))
                 .collect(),
             groups: catalog.groups().iter().map(GroupView::from).collect(),
+            installer_id: catalog.installer().map(|own| own.id.to_string()),
             installer_update: installer_update(session, installed, available),
             problems,
         }

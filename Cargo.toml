@@ -1,6 +1,6 @@
 # The headless crates (`crates/`) and the Tauri app (`src-tauri/`): one target dir.
 [workspace]
-members = ["crates/*"]
+members = ["crates/*", "src-tauri"]
 resolver = "3"
 
 [workspace.package]
@@ -9,6 +9,7 @@ edition = "2024"
 rust-version = "1.99"
 authors = ["F000NK"]
 license = "AGPL-3.0-only"
+publish = false
 repository = "https://github.com/F000NKKK/Meridian-Installer"
 
 [workspace.dependencies]
@@ -21,7 +22,9 @@ substrate-installer-fs = { path = "../Substrate-Platform/crates/substrate-instal
 substrate-installer-http = { path = "../Substrate-Platform/crates/substrate-installer-http" }
 substrate-installer-process = { path = "../Substrate-Platform/crates/substrate-installer-process" }
 substrate-installer-data = { path = "../Substrate-Platform/crates/substrate-installer-data" }
+substrate-host-contract = { path = "../Substrate-Platform/crates/substrate-host-contract" }
 substrate-process = { path = "../Substrate-Platform/crates/substrate-process" }
+tauri-plugin-substrate = { path = "../Substrate-Platform/tauri-plugin" }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 thiserror = "2"

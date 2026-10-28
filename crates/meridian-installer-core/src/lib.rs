@@ -1,5 +1,6 @@
 //! Meridian Installer's composition root, over Substrate's installer engine.
 //!
+//! - [`activity`]: what a window does: snapshot, plan, and operations on a thread;
 //! - [`folder`]: the folder everything lives in (`~/.meridian`);
 //! - [`host`]: the machine, as planning needs it;
 //! - [`credentials`]: the GitHub token (`GITHUB_TOKEN`, `gh auth token`);
@@ -11,6 +12,7 @@
 #![forbid(unsafe_code)]
 #![doc = include_str!("../README.md")]
 
+pub mod activity;
 pub mod catalog;
 pub mod credentials;
 pub mod display;

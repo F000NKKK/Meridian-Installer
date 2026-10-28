@@ -5,6 +5,7 @@ edition.workspace = true
 rust-version.workspace = true
 authors.workspace = true
 license.workspace = true
+publish.workspace = true
 repository.workspace = true
 description = "The headless Meridian Installer: list, plan, install, update, remove and status from a terminal or CI."
 readme = "README.md"
