@@ -3,7 +3,7 @@ import { formatBytes } from "../format";
 import type { Operation } from "./useOperation";
 
 /** A running operation inside its product's card, as Visual Studio Installer shows it. */
-export function OperationProgress({ op, onPause, onDismiss }: { op: Operation; onPause: (paused: boolean) => void; onDismiss: () => void }) {
+export function OperationProgress({ op, onPause, onCancel, onDismiss }: { op: Operation; onPause: (paused: boolean) => void; onCancel: () => void; onDismiss: () => void }) {
   const t = useT();
   if (op.finished) {
     if (op.finished.ok) return null;
@@ -38,6 +38,7 @@ export function OperationProgress({ op, onPause, onDismiss }: { op: Operation; o
       <div className="mi-op-detail">{op.lastLine ?? op.installing?.component ?? ""}</div>
       <div className="mi-op-buttons">
         <Button onClick={() => onPause(!op.paused)}>{op.paused ? t("Resume") : t("Pause")}</Button>
+        <Button onClick={onCancel}>{t("Cancel")}</Button>
       </div>
     </div>
   );

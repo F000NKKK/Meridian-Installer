@@ -2013,6 +2013,7 @@ dependencies = [
  "serde",
  "substrate-host-contract",
  "substrate-installer-domain",
+ "substrate-installer-fs",
  "substrate-process",
  "tauri",
  "tauri-build",
@@ -3361,8 +3362,7 @@ dependencies = [
 [[package]]
 name = "substrate-installer-app"
 version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9bc6612266c9ba6e8947272b2e3cf11fa90e19052a047a0c3a21360fdb4d4c44"
+source = "git+https://github.com/F000NKKK/Substrate-Platform?rev=9467fd86a2e1a2dadc350a698f2aba840b5b3389#9467fd86a2e1a2dadc350a698f2aba840b5b3389"
 dependencies = [
  "substrate-installer-domain",
  "thiserror 2.0.21",
@@ -3400,8 +3400,7 @@ dependencies = [
 [[package]]
 name = "substrate-installer-domain"
 version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bbc3eec985996dfc319f6260e9e2eb6b407f77627648f890bc2d404b566196e9"
+source = "git+https://github.com/F000NKKK/Substrate-Platform?rev=9467fd86a2e1a2dadc350a698f2aba840b5b3389#9467fd86a2e1a2dadc350a698f2aba840b5b3389"
 dependencies = [
  "semver",
  "thiserror 2.0.21",
@@ -3410,8 +3409,7 @@ dependencies = [
 [[package]]
 name = "substrate-installer-fs"
 version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c554b3f04f979d8623d91c8d90081138a823a8f928cb416772300d234dd612f5"
+source = "git+https://github.com/F000NKKK/Substrate-Platform?rev=9467fd86a2e1a2dadc350a698f2aba840b5b3389#9467fd86a2e1a2dadc350a698f2aba840b5b3389"
 dependencies = [
  "substrate-installer-app",
  "substrate-installer-domain",

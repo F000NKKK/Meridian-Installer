@@ -1,0 +1,40 @@
+.mi-flyout {
+  position: absolute;
+  top: calc(100% + var(--sp-space-sm));
+  right: 0;
+  z-index: 20;
+  width: 380px;
+  max-width: calc(100vw - 160px);
+  max-height: min(440px, calc(100vh - 64px));
+  overflow: auto;
+  box-sizing: border-box;
+  padding: var(--sp-space-md);
+  background: var(--sp-surface-1);
+  border: 1px solid var(--sp-border);
+  border-radius: var(--sp-radius-md);
+  box-shadow: 0 8px 24px #0006;
+  user-select: text;
+}
+
+.mi-flyout h3 {
+  margin: 0 0 var(--sp-space-sm);
+  font-size: inherit;
+}
+
+.mi-flyout-item {
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  gap: var(--sp-space-sm);
+  align-items: start;
+  padding: var(--sp-space-sm) 0;
+  overflow-wrap: anywhere;
+}
+
+.mi-flyout-item + .mi-flyout-item {
+  border-top: 1px solid var(--sp-border);
+}
+
+.mi-flyout-icon {
+  margin-top: 3px;
+  color: var(--sp-text-muted);
+}

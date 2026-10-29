@@ -38,7 +38,7 @@ export function ModifyWindow({ product, snapshot, settings, onSettings, onApply,
   const chosen = workloads.filter((w) => selection?.workloads.includes(w.id));
   const reasons = plan?.reasons ?? {};
   const nothingToDo = plan !== null && plan.changes.length === 0;
-  const blocked = !selection || !plan || plan.conflicts.length > 0;
+  const blocked = !selection || !plan || error !== null || plan.conflicts.length > 0 || plan.unread.length > 0;
 
   // Escape leaves, as the close button does.
   useEffect(() => {

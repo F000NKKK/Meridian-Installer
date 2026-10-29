@@ -56,6 +56,12 @@ jobs:
         working-directory: app/Meridian-Installer
         run: npm test
 
+      - name: Browser regression tests
+        working-directory: app/Meridian-Installer
+        run: |
+          npx playwright install --with-deps chromium
+          npm run test:e2e
+
       # `tauri::generate_context!` needs the built front end.
       - name: Build front end
         working-directory: app/Meridian-Installer

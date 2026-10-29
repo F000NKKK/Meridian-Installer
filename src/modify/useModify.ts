@@ -14,21 +14,36 @@ export function useModify(product: string, mode: Mode, keepDownloads: boolean) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    api.selectionOf(product).then(setSelection, (e) => setError(String(e)));
+    let active = true;
+    setSelection(null);
+    setPlan(null);
+    setError(null);
+    api.selectionOf(product).then(
+      (value) => { if (active) setSelection(value); },
+      (e) => { if (active) setError(String(e)); },
+    );
+    return () => { active = false; };
   }, [product]);
 
   useEffect(() => {
+    let active = true;
+    setPlan(null);
+    setError(null);
     if (!selection) return;
     const timer = setTimeout(() => {
       api.plan({ product, selection, mode, keepDownloads }).then(
         (p) => {
+          if (!active) return;
           setPlan(p);
           setError(null);
         },
-        (e) => setError(String(e)),
+        (e) => { if (active) setError(String(e)); },
       );
     }, REPLAN_DELAY_MS);
-    return () => clearTimeout(timer);
+    return () => {
+      active = false;
+      clearTimeout(timer);
+    };
   }, [product, selection, mode, keepDownloads]);
 
   const toggleWorkload = (id: string) =>

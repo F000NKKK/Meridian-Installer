@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { Icon, IconButton, useT } from "substrate-platform-ui";
+import "./Notifications.css";
 
 /**
  * The title bar's bell, as Visual Studio Installer's: its count is what
@@ -12,26 +13,37 @@ export function Notifications({ messages }: { messages: string[] }) {
   const [seen, setSeen] = useState<Set<string>>(new Set());
   const [dismissed, setDismissed] = useState<Set<string>>(new Set());
   const root = useRef<HTMLSpanElement>(null);
-  const shown = messages.filter((m) => !dismissed.has(m));
+  const dialogId = useId();
+  const shown = [...new Set(messages)].filter((m) => !dismissed.has(m));
   const unseen = shown.filter((m) => !seen.has(m)).length;
 
   useEffect(() => {
     if (!open) return;
     setSeen((s) => new Set([...s, ...shown]));
     const close = (e: MouseEvent) => !root.current?.contains(e.target as Node) && setOpen(false);
+    const escape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        root.current?.querySelector("button")?.focus();
+      }
+    };
     window.addEventListener("mousedown", close);
-    return () => window.removeEventListener("mousedown", close);
+    window.addEventListener("keydown", escape);
+    return () => {
+      window.removeEventListener("mousedown", close);
+      window.removeEventListener("keydown", escape);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, messages]);
 
   return (
     <span className="mi-bell" ref={root}>
-      <IconButton title={t("Notifications")} onClick={() => setOpen((o) => !o)}>
+      <IconButton title={t("Notifications")} aria-expanded={open} aria-controls={dialogId} aria-haspopup="dialog" onClick={() => setOpen((o) => !o)}>
         <Icon name="bell" />
       </IconButton>
       {unseen > 0 && <span className="mi-badge">{unseen}</span>}
       {open && (
-        <div className="mi-flyout" role="dialog" aria-label={t("Notifications")}>
+        <div id={dialogId} className="mi-flyout" role="dialog" aria-label={t("Notifications")}>
           <h3>{t("Notifications")}</h3>
           {shown.length === 0 && <p className="mi-muted">{t("No notifications.")}</p>}
           {shown.map((m) => (
