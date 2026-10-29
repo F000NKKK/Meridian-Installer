@@ -1,11 +1,12 @@
-# Meridian Installer 0.2.0
+# Meridian Installer 0.2.1
 
-- Uses the published Substrate Installer 0.1.2 package family;
-  removes the temporary Git dependency overrides.
-- Includes Substrate UI fixes that isolate failed dock tabs and coalesce resizing updates.
-  The release pins the tested Substrate UI commit for reproducible builds.
-- Retains release bundles on first launch and registers their launchers.
-- Includes installation/update recovery fixes and the installer browser workflow regressions
-  added since 0.1.0.
+Linux desktop integration fixes:
 
-Download the installer for Linux, Windows or macOS below. The channel catalog is included.
+- Retains the bundled PNG next to the installed AppImage and registers it in the launcher.
+- Adds the application description to the installed desktop entry and bundle metadata.
+- Uses the desktop file identity `dev.meridian.installer` as the GTK/Wayland application id,
+  allowing the desktop to associate the running window with its icon and launcher.
+- Repairs the entry on repeated startup and removes the old empty launcher entry.
+- The updated Linux process waits for its parent to exit before registering the GTK id.
+
+Uses `substrate-installer-fs 0.1.3`; the other Substrate Installer packages remain at 0.1.2.

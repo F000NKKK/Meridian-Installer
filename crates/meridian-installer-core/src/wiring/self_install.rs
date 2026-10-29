@@ -9,9 +9,13 @@ use substrate_installer_app::ports::tools::ToolControl;
 use substrate_installer_archive::ArchiveUnpacker;
 use substrate_installer_domain::channel::Installer;
 use substrate_installer_domain::ids::ItemId;
+use substrate_installer_domain::ids::ProductId;
 use substrate_installer_domain::inventory::Installed;
+use substrate_installer_domain::texts::Description;
 use substrate_installer_domain::versions::Version;
-use substrate_installer_fs::{HostProducts, LauncherDirs, RunningBundle, RunningProduct};
+use substrate_installer_fs::{
+    HostProducts, LauncherDirs, RunningBundle, RunningPresentation, RunningProduct,
+};
 
 use super::{MachineConfig, SelfInstallError};
 use crate::formats::installed_records;
@@ -54,7 +58,7 @@ pub fn install_running(
         version,
         bundle,
     };
-    let path = products.place_running(&request, &control)?;
+    let path = place(&products, &request, &control)?;
     records.put(Installed {
         id,
         version: version.clone(),
@@ -62,4 +66,21 @@ pub fn install_running(
     });
     store.write(&records)?;
     Ok(path)
+}
+
+fn place(
+    products: &HostProducts,
+    request: &RunningProduct<'_>,
+    control: &ToolControl<'_>,
+) -> Result<PathBuf, substrate_installer_app::ports::placement::ProductError> {
+    let desktop_id = ProductId::new("dev.meridian.installer")
+        .expect("the bundled application identifier is a valid product id");
+    let description = Description::new("Installs and updates Meridian IDLE, the Meridian CLI, the engine SDK and the Rust toolchain.")
+        .expect("the bundled application description is valid");
+    let presentation = RunningPresentation {
+        desktop_id: &desktop_id,
+        description: &description,
+        icon: include_bytes!("../../../../src-tauri/icons/icon.png"),
+    };
+    products.place_running_presented(request, &presentation, control)
 }

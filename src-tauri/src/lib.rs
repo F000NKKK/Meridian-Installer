@@ -7,6 +7,8 @@ mod app_state;
 mod commands;
 mod first_run;
 mod host;
+#[cfg(target_os = "linux")]
+mod restart;
 mod startup;
 
 pub use app::run;

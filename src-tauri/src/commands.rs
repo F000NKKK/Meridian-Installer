@@ -119,5 +119,14 @@ pub(crate) fn launch(state: State<'_, Arc<AppState>>, product: String) -> Reply<
         .program_of(&product)
         .map_err(|e| describe(&e))?
         .ok_or_else(|| format!("{product} is not installed"))?;
+    #[cfg(target_os = "linux")]
+    if operations
+        .session()
+        .catalog()
+        .installer()
+        .is_some_and(|own| own.id.as_str() == product)
+    {
+        return crate::restart::start(&program, std::process::id()).map_err(|e| describe(&e));
+    }
     substrate_process::start(&program).map_err(|e| describe(&e))
 }

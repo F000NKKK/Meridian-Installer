@@ -16,6 +16,8 @@ const _: () =
 /// Tauri's error when the window cannot be made or run.
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() -> tauri::Result<()> {
+    #[cfg(target_os = "linux")]
+    crate::restart::wait_for_parent()?;
     let state = Arc::new(crate::app_state::AppState::new(crate::startup::operations()));
     tauri::Builder::default()
         .plugin(tauri_plugin_substrate::init())

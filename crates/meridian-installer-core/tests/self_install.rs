@@ -87,3 +87,35 @@ fn opening_an_old_download_does_not_downgrade_the_installed_bundle() {
     assert_eq!(retained, newer);
     assert_eq!(std::fs::read(retained).unwrap(), b"newer");
 }
+
+#[test]
+fn the_launcher_has_a_bundled_icon_description_and_the_window_application_id() {
+    let scratch = tempfile::tempdir().unwrap();
+    let config = MachineConfig {
+        home: MeridianHome::new(scratch.path().join("home")),
+        user_home: scratch.path().join("user"),
+        token: None,
+    };
+    let catalog = built_in().unwrap();
+    let bundle = scratch.path().join("Installer.AppImage");
+    std::fs::write(&bundle, b"bundle").unwrap();
+    let program = install_running(
+        &config,
+        catalog.installer().unwrap(),
+        &Version::new("0.2.1").unwrap(),
+        RunningBundle::AppImage(&bundle),
+    )
+    .unwrap();
+    let settings: serde_json::Value =
+        serde_json::from_str(include_str!("../../../src-tauri/tauri.conf.json")).unwrap();
+    assert_eq!(settings["app"]["enableGTKAppId"], true);
+    let id = settings["identifier"].as_str().unwrap();
+    let entries = config.user_home.join(".local/share/applications");
+    let text = std::fs::read_to_string(entries.join(format!("{id}.desktop"))).unwrap();
+    let description = settings["bundle"]["shortDescription"].as_str().unwrap();
+    assert!(text.contains(&format!("Comment={description}\n")));
+    let icon = program.parent().unwrap().join("icon.png");
+    assert!(text.contains(&format!("Icon={}\n", icon.display())));
+    assert_eq!(&std::fs::read(icon).unwrap()[..8], b"\x89PNG\r\n\x1a\n");
+    assert!(!entries.join("installer.desktop").exists());
+}
