@@ -9,7 +9,7 @@
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-blue.svg)](LICENSE)
 [![Rust 1.99](https://img.shields.io/badge/Rust-1.99-orange.svg)](rust-toolchain.toml)
 [![Tauri 2](https://img.shields.io/badge/Tauri-2-24C8DB.svg)](https://tauri.app/)
-![Version 0.1.0](https://img.shields.io/badge/version-0.1.0-informational)
+![Version 0.2.0](https://img.shields.io/badge/version-0.2.0-informational)
 
 English | [Русский](README.ru.md)
 
