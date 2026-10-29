@@ -42,7 +42,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: F000NKKK/Substrate-Platform
-          ref: 4a7d57cefcfe00e5343d33fab3ee46d24de998ad
+          ref: 7945b41dab3c3f094bdd5eb630e78eabd083e1fb
           path: Substrate-Platform
 
       - name: Linux libraries
