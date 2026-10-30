@@ -20,6 +20,8 @@ jobs:
       - uses: dtolnay/rust-toolchain@1.99
       - uses: Swatinem/rust-cache@v2
       - name: Query the real published component sources
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: cargo run --locked -p meridian-installer-cli -- --home "$RUNNER_TEMP/meridian-smoke" --no-refresh --json list > catalog-smoke.json
       - name: Verify the published CLI and SDK are installable choices
         run: |
