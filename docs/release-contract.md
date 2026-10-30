@@ -31,14 +31,12 @@ the installer verifies a download against it and refuses a mismatch.
 |---|---|---|
 | Meridian Installer | `F000NKKK/Meridian-Installer` | `_amd64.AppImage` (Linux x86_64), `_x64-setup.exe` (Windows), `_universal.app.tar.gz` (both macOS tags), and `catalog.sdata` |
 | Meridian IDLE | `F000NKKK/Meridian-IDLE` | the same three endings, plus `_amd64.deb` for systems with `dpkg` |
-| `meridian.cli` | `F000NKKK/Meridian-CLI` | `-linux-x86_64.tar.gz`, `-linux-aarch64.tar.gz`, `-windows-x86_64.zip`, `-macos-x86_64.tar.gz`, `-macos-aarch64.tar.gz` |
+| `meridian.cli` | crates.io `meridian-cli` | installed by `cargo install --locked` after the Rust toolchain |
 | `meridian.examples` | `F000NKKK/Meridian-Engine` | `meridian-examples.zip` |
 | `meridian.assets` | `F000NKKK/Meridian-Engine` | `meridian-assets.zip` |
 | `meridian.sdk` | `F000NKKK/Meridian-Engine` | none: the tag's source archive (a git-tag source) |
 
-An archive holds the files at its root (or under one folder, which the unpacker strips). The CLI
-archive holds the `meridian` executable (`meridian.exe` on Windows) at its root; it is placed in
-`~/.meridian/bin` ... TODO below.
+An archive holds the files at its root (or under one folder, which the unpacker strips). The CLI source is the public crates.io package, installed into Cargo's bin directory as `meridian` (`meridian.exe` on Windows). Its GitHub repository may remain private.
 
 ## The Installer's catalog
 

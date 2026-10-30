@@ -40,3 +40,21 @@ mod tests {
         }
     }
 }
+
+#[cfg(test)]
+mod public_cli_tests {
+    use substrate_installer_domain::sources::Source;
+
+    #[test]
+    fn cli_installation_uses_a_public_registry_instead_of_private_release_assets() {
+        let catalog = super::built_in().expect("valid catalog");
+        let cli = catalog
+            .components()
+            .iter()
+            .find(|component| component.id.as_str() == "meridian.cli")
+            .expect("CLI component");
+        assert!(
+            matches!(&cli.source, Source::CratesIo { name } if name.as_str() == "meridian-cli")
+        );
+    }
+}

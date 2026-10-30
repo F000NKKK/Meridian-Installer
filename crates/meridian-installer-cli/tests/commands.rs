@@ -6,6 +6,7 @@ use meridian_installer_cli::{CliError, Context, run};
 use meridian_installer_core::engine::Session;
 use meridian_installer_core::testing::SampleWorld;
 use substrate_installer_app::control::CancelToken;
+use substrate_installer_app::ports::tools::ToolCommand;
 
 /// Runs the command line `words` and returns what it wrote.
 fn execute(session: &Session, words: &[&str]) -> Result<String, CliError> {
@@ -42,11 +43,9 @@ fn install_status_update_and_remove_work_end_to_end() {
     let home = tempfile::tempdir().expect("tempdir");
     let world = SampleWorld::new(home.path(), "0.1.0");
     execute(&world.session, &["install", "meridian.workload.game"]).expect("installs");
-    assert!(
-        home.path()
-            .join("components/meridian.cli/0.1.0/README")
-            .is_file()
-    );
+    assert!(world.tools.commands().iter().any(|command| matches!(command,
+        ToolCommand::InstallCrate { name, version } if name.as_str() == "meridian-cli" && version.to_string() == "0.1.0"
+    )));
 
     let status = execute(&world.session, &["status"]).expect("status");
     assert!(
@@ -58,11 +57,9 @@ fn install_status_update_and_remove_work_end_to_end() {
     let later = execute(&newer.session, &["status"]).expect("status");
     assert!(later.contains("update available (0.2.0)"), "{status}");
     execute(&newer.session, &["update", "meridian.cli"]).expect("updates");
-    assert!(
-        home.path()
-            .join("components/meridian.cli/0.2.0/README")
-            .is_file()
-    );
+    assert!(newer.tools.commands().iter().any(|command| matches!(command,
+        ToolCommand::InstallCrate { name, version } if name.as_str() == "meridian-cli" && version.to_string() == "0.2.0"
+    )));
 
     let refused = execute(&newer.session, &["remove", "rust.toolchain"]);
     assert!(
@@ -70,7 +67,15 @@ fn install_status_update_and_remove_work_end_to_end() {
         "{refused:?}"
     );
     execute(&newer.session, &["remove", "meridian.cli"]).expect("removes");
-    assert!(!home.path().join("components/meridian.cli/0.2.0").exists());
+    assert!(
+        newer
+            .tools
+            .commands()
+            .iter()
+            .any(|command| matches!(command,
+                ToolCommand::UninstallCrate { name } if name.as_str() == "meridian-cli"
+            ))
+    );
 }
 
 #[test]

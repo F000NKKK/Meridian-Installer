@@ -8,7 +8,7 @@
 // docs/release-contract.md.
 {
   // Bumped with every change: an Installer takes the newest of its own and the channel's.
-  revision: 1,
+  revision: 2,
 
   // The release asset that says what a release needs of the others:
   // `{ requires: { "meridian.cli": ">=0.2.0" } }`.
@@ -125,18 +125,8 @@
       description: "meridian new, build, run and check — creates a game and builds it.",
       group: "toolchain",
       requires: ["rust.toolchain"],
-      // One archive per platform: meridian-<platform>.tar.gz (.zip on Windows).
-      source: {
-        kind: "github",
-        repo: "F000NKKK/Meridian-CLI",
-        assets: {
-          "linux-x86_64": "-linux-x86_64.tar.gz",
-          "linux-aarch64": "-linux-aarch64.tar.gz",
-          "windows-x86_64": "-windows-x86_64.zip",
-          "macos-x86_64": "-macos-x86_64.tar.gz",
-          "macos-aarch64": "-macos-aarch64.tar.gz",
-        },
-      },
+      // A public registry source: no access to a private GitHub repository is needed.
+      source: { kind: "crate", name: "meridian-cli" },
     },
     {
       id: "meridian.sdk",

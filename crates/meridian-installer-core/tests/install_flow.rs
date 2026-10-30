@@ -5,6 +5,7 @@ use meridian_installer_core::testing::SampleWorld;
 use substrate_installer_app::control::CancelToken;
 use substrate_installer_app::installing::ApplyOptions;
 use substrate_installer_app::plans::for_removal;
+use substrate_installer_app::ports::tools::ToolCommand;
 use substrate_installer_domain::changes::Change;
 use substrate_installer_domain::choice::Selection;
 use substrate_installer_domain::ids::{ComponentId, ItemId, WorkloadId};
@@ -58,11 +59,9 @@ fn the_game_workload_installs_its_components_in_order() {
             .iter()
             .any(|found| found.id == component("meridian.assets"))
     );
-    assert!(
-        home.path()
-            .join("components/meridian.cli/0.1.0/README")
-            .is_file()
-    );
+    assert!(world.tools.commands().iter().any(|command| matches!(command,
+        ToolCommand::InstallCrate { name, version } if name.as_str() == "meridian-cli" && version.to_string() == "0.1.0"
+    )));
     assert!(
         home.path()
             .join("components/meridian.sdk/0.1.0/README")
@@ -91,11 +90,9 @@ fn a_newer_release_updates_and_a_removal_removes() {
     session
         .apply(&plan, ApplyOptions::default(), &CancelToken::new(), &sink)
         .expect("updates");
-    assert!(
-        home.path()
-            .join("components/meridian.cli/0.2.0/README")
-            .is_file()
-    );
+    assert!(newer.tools.commands().iter().any(|command| matches!(command,
+        ToolCommand::InstallCrate { name, version } if name.as_str() == "meridian-cli" && version.to_string() == "0.2.0"
+    )));
     assert!(!home.path().join("components/meridian.cli/0.1.0").exists());
 
     let after_update = session.installed().expect("records");
@@ -108,6 +105,15 @@ fn a_newer_release_updates_and_a_removal_removes() {
             &sink,
         )
         .expect("removes");
+    assert!(
+        newer
+            .tools
+            .commands()
+            .iter()
+            .any(|command| matches!(command,
+                ToolCommand::UninstallCrate { name } if name.as_str() == "meridian-cli"
+            ))
+    );
     let after_removal = session.installed().expect("records");
     assert!(
         !after_removal

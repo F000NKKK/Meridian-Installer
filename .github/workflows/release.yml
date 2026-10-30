@@ -12,6 +12,10 @@ on:
 permissions:
   contents: write
 
+env:
+  CARGO_PROFILE_DEV_DEBUG: 0
+  CARGO_PROFILE_TEST_DEBUG: 0
+
 jobs:
   # The release first, once: every build then uploads into it.
   release:
@@ -32,7 +36,7 @@ jobs:
             args: ""
           - os: windows-latest
             args: ""
-          - os: macos-latest
+          - os: macos-15
             args: "--target universal-apple-darwin"
     runs-on: ${{ matrix.os }}
     steps:
@@ -42,7 +46,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: F000NKKK/Substrate-Platform
-          ref: 7945b41dab3c3f094bdd5eb630e78eabd083e1fb
+          ref: 7262ddf20f6c4c20fb5f06d74c967d40c386ee80
           path: Substrate-Platform
 
       - name: Linux libraries
@@ -53,7 +57,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
 
       - name: Rust (the toolchain rust-toolchain.toml pins)
         working-directory: app/Meridian-Installer
@@ -69,6 +73,16 @@ jobs:
       - name: Meridian Installer's packages
         working-directory: app/Meridian-Installer
         run: npm ci
+
+      - name: Validate the release on Linux
+        if: runner.os == 'Linux'
+        working-directory: app/Meridian-Installer
+        run: |
+          npm run typecheck
+          npm test
+          cargo fmt --all --check
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo test --workspace --all-features
 
       - uses: tauri-apps/tauri-action@v0
         env:

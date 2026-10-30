@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: F000NKKK/Substrate-Platform
-          ref: 7945b41dab3c3f094bdd5eb630e78eabd083e1fb
+          ref: 7262ddf20f6c4c20fb5f06d74c967d40c386ee80
           path: Substrate-Platform
       - uses: actions/checkout@v4
         with:
