@@ -79,3 +79,12 @@ Release builds retain their local bundle without downloading it again.
 - **Interrupted installations** are not resumed: Substrate has no pending journal, so an
   installation that stops half-way is retried from the start by running it again.
 - **Empty folders** are left in the home after a removal.
+
+## Authenticated release assets
+
+The release listing's asset API URL is the canonical download address when available.
+Downloads negotiate `application/octet-stream`, apply the configured GitHub token only to
+the GitHub API base, and strip authorization on redirects. The storage URL is temporary
+and never persisted as the catalog's canonical asset address. SHA-256 and Range resume
+continue to apply. A private release requires an authorized `GITHUB_TOKEN` or `gh` session;
+its browser download URL returning 404 does not imply that the asset is absent.
