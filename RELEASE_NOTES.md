@@ -1,14 +1,13 @@
-# Meridian Installer 0.2.3
+# Meridian Installer 0.2.4
 
-Fixes downloading Meridian IDLE and other assets from private GitHub releases:
+Fixes missing launcher icons for privately installed Debian applications such as
+Meridian IDLE. Launcher entries now resolve the PNG shipped inside the extracted
+package's hicolor icon directory, rather than relying on a system-wide icon theme.
+Explicit Installer presentation icons keep their existing priority.
 
-- Uses the asset API endpoint with binary content negotiation and the configured GitHub token.
-- Removes authorization on redirects, so storage/CDN hosts never receive the GitHub token.
-- Preserves resumable transfers and verifies the published SHA-256 digest.
-- Keeps the underlying HTTP status in download errors.
+Includes substrate-installer-fs 0.1.4. After updating Installer, reinstall the
+IDLE package to regenerate its launcher entry. This fix covers the application
+menu shortcut; window/compositor icon matching is a separate verification.
 
-Private repositories still require an account with access. Existing token discovery uses
-`GITHUB_TOKEN`, or the token from `gh auth token`. The source repository's visibility is unchanged.
-
-Includes substrate-installer-app/http 0.1.3; the CLI's public crates.io installation and
-catalog revision 2 from 0.2.2 are retained.
+Private GitHub releases still require an authorized token. Download authentication,
+redirect protection and SHA-256 verification from 0.2.3 are retained.

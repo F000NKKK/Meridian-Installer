@@ -2007,7 +2007,7 @@ dependencies = [
 
 [[package]]
 name = "meridian-installer"
-version = "0.2.3"
+version = "0.2.4"
 dependencies = [
  "meridian-installer-core",
  "serde",
@@ -2022,7 +2022,7 @@ dependencies = [
 
 [[package]]
 name = "meridian-installer-cli"
-version = "0.2.3"
+version = "0.2.4"
 dependencies = [
  "clap",
  "ctrlc",
@@ -2037,7 +2037,7 @@ dependencies = [
 
 [[package]]
 name = "meridian-installer-core"
-version = "0.2.3"
+version = "0.2.4"
 dependencies = [
  "flate2",
  "meridian-installer-core",
@@ -3410,9 +3410,9 @@ dependencies = [
 
 [[package]]
 name = "substrate-installer-fs"
-version = "0.1.3"
+version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b65f7587caf53a60455173b85d924f5b43b8f1c5d728595990e7e7233ac0ac52"
+checksum = "c1285468940650743026f2954cf54f2bcc0b49a775be16fee1e3508b75a6a2be"
 dependencies = [
  "substrate-installer-app",
  "substrate-installer-domain",
